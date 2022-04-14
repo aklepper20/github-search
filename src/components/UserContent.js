@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 function UserContent({ dateSplit, months }) {
   const userData = useSelector((state) => state.user.data);
-
   return (
     <div className="content">
       <div className="profile">
