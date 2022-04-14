@@ -1,136 +1,92 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import moment from "moment";
+import { useEffect, useState, useRef } from "react";
+import Container from "./components/Container";
+
+// #2 import
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "./store/userSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user.data);
+  console.log(userData);
+
   const [user, setUser] = useState("octocat");
-  const [userData, setUserData] = useState({});
+  // const [userData,setUserData] = useState({})
+  const [dateSplit, setDateSplit] = useState("2011-01-25T18:44:36Z");
+  const [theme, setTheme] = useState("");
+
+  const userRef = useRef();
+
+  //REGULAR AXIOS CALL
+  // useEffect(() => {
+  //   axios.get('https://api.github.com/users/octocat')
+  // .then(res => {
+  //   console.log(res.data);
+  //   // setMovies(res.data.results)
+  // }, error => {
+  //   console.log(error);
+  // })
+  // }, [])
+
+  // AXIOS CALL WITH ASYNC AWAIT
+
+  // **base url to make requests to the database
+  // const instance = axios.create({
+  //   baseURL: "'https://api.github.com/users"
+  // })
 
   useEffect(() => {
-    const getRequest = async () => {
+    console.log(userRef.current.value);
+    const getUser = async () => {
       try {
-        const res = await axios.get(`https://api.github.com/users/${user}`);
-        setUserData(res.data);
-      } catch (err) {
-        console.log(err);
+        const response = await axios.get(
+          `https://api.github.com/users/${user}`
+        );
+        dispatch(setUserData(response.data));
+        setDateSplit(response.data.created_at.split("T").shift().split("-"));
+      } catch (error) {
+        console.log(error);
       }
     };
-    getRequest();
-  }, [user]);
+    getUser();
+  }, [user, dispatch]);
+
+  // variable to split date create at for formatting
+
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const changeTheme = () => {
+    if (theme === "") {
+      setTheme("dark");
+    } else {
+      setTheme("");
+    }
+  };
 
   return (
-    <div className="App">
-      <div className="container">
-        <div className="header">
-          <h4>devfinder</h4>
-        </div>
-
-        <div className="search" id="search_container">
-          <img src="./assets/icon-search.svg" alt="" />
-          <input
-            id="input"
-            type="text"
-            placeholder="Search Github username..."
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-          />
-          <div className="search_btn">
-            <button id="search">Search</button>
-          </div>
-        </div>
-
-        <div id="error">
-          <p>User not found</p>
-        </div>
-
-        <div className="content">
-          <div className="profile">
-            <div className="profile_frame">
-              <img
-                id="avatar"
-                src={
-                  userData.avatar_url
-                    ? userData.avatar_url
-                    : "./assets/profilePlaceholder.png"
-                }
-                alt={userData.name}
-              />
-            </div>
-          </div>
-
-          <div className="user">
-            <div className="user_info">
-              <div className="name">
-                <h3 id="name">{userData.name}</h3>
-
-                <div className="username">
-                  <p id="login">{`@${userData.login}`}</p>
-                </div>
-              </div>
-
-              <div className="date">
-                <p id="date">
-                  {moment(userData.created_at).format("MMM Do YYYY")}
-                </p>
-              </div>
-            </div>
-
-            <div className="bio">
-              <p id="bio">{userData.bio}</p>
-            </div>
-
-            <div className="stats_container" id="statistics">
-              <div className="stats">
-                <p>Repos</p>
-                <p id="repo">{userData.public_repos}</p>
-              </div>
-
-              <div className="stats">
-                <p>Followers</p>
-                <p id="followers">{userData.followers}</p>
-              </div>
-
-              <div className="stats">
-                <p>Following</p>
-                <p id="following">{userData.following}</p>
-              </div>
-            </div>
-
-            <div className="links_container">
-              <div className="left">
-                <div className="info">
-                  <img src="./assets/icon-location.svg" alt="" />
-                  <p id="location">{userData.location}</p>
-                </div>
-                <div className="info">
-                  <img src="./assets/icon-website.svg" alt="" />
-                  <a href={userData.blog} id="blog">
-                    {userData.blog}
-                  </a>
-                </div>
-              </div>
-
-              <div className="right">
-                <div className="info">
-                  <img src="./assets/icon-twitter.svg" alt="" />
-                  <p id="twitter">
-                    {userData.twitter_username
-                      ? userData.twitter_username
-                      : "Not available"}
-                  </p>
-                </div>
-                <div className="info">
-                  <img src="./assets/icon-company.svg" alt="" />
-                  <p id="company">
-                    {userData.company ? userData.company : "Not available"}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className={`App ${theme}`}>
+      <Container
+        setUser={setUser}
+        changeTheme={changeTheme}
+        userRef={userRef}
+        dateSplit={dateSplit}
+        months={months}
+      />
     </div>
   );
 }

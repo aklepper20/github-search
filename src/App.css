@@ -24,6 +24,10 @@
   align-items: center;
 }
 
+.UserInput {
+  width: 100%;
+}
+
 .header {
   width: 100%;
   display: flex;
@@ -35,8 +39,9 @@
   display: flex;
   font-size: x-small;
   align-items: center;
-  justify-content: space-between;
-  width: 60px;
+  justify-content: center;
+  width: 50px;
+  background-color: #0079ff;
 }
 
 .search {
@@ -97,7 +102,6 @@
 .profile {
   width: calc(100% / 4);
   height: 100%;
-  /* background: chartreuse; */
   margin-top: 20px;
   display: flex;
   justify-content: center;
@@ -113,13 +117,11 @@
   width: 70%;
   height: 100%;
   margin-top: 20px;
-  /* background-color: cornflowerblue; */
 }
 
 .user_info {
   display: flex;
   justify-content: space-between;
-  /* align-items: center; */
 }
 
 .date {
@@ -183,7 +185,6 @@
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
   .container {
     width: 90%;
-    /* height: 80%; */
   }
 
   .profile {
@@ -205,7 +206,7 @@
   }
 }
 
-/* Dark mode CSS */
+/* Dark Mode CSS */
 
 .App.dark {
   background-color: rgb(20, 29, 47);
