@@ -11,11 +11,10 @@ function App() {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userData.value);
   const dateSplitData = useSelector((state) => state.userData.value);
-  const themeData = useSelector((state) => state.themeData.value);
 
   const [user, setUser] = useState("octocat");
 
-  // const [theme, setTheme] = useState("");
+  const [theme, setTheme] = useState("");
 
   const userRef = useRef();
 
@@ -38,19 +37,19 @@ function App() {
     getUser();
   }, [userData, dispatch]);
 
-  // const changeTheme = () => {
-  //   if (theme === "") {
-  //     setTheme("dark");
-  //   } else {
-  //     setTheme("");
-  //   }
-  // };
+  const changeTheme = () => {
+    if (theme === "") {
+      setTheme("dark");
+    } else {
+      setTheme("");
+    }
+  };
 
   return (
-    <div className={`App ${themeData}`}>
+    <div className={`App ${theme}`}>
       <Container
         setUser={setUser}
-        // changeTheme={changeTheme}
+        changeTheme={changeTheme}
         userRef={userRef}
       />
     </div>
