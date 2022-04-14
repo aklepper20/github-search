@@ -1,8 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-function UserContent({ dateSplit, months }) {
-  const userData = useSelector((state) => state.user.data);
+function UserContent() {
+  const userData = useSelector((state) => state.userData.value);
+  const monthsArr = useSelector((state) => state.monthsData.value);
+  const dateSplit = useSelector((state) => state.dateSplitData.value);
+
   return (
     <div className="content">
       <div className="profile">
@@ -21,7 +24,7 @@ function UserContent({ dateSplit, months }) {
           <div className="date">
             <p id="date">
               {userData
-                ? `Joined ${dateSplit[2]} ${months[dateSplit[1] - 1]} ${
+                ? `Joined ${dateSplit[2]} ${monthsArr[dateSplit[1] - 1]} ${
                     dateSplit[0]
                   }`
                 : ""}

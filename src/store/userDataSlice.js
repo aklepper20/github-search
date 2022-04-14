@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Set what you want your intial state to be
 const initialState = {
-  data: {
+  value: {
     login: "octocat",
     id: 583231,
     node_id: "MDQ6VXNlcjU4MzIzMQ==",
@@ -39,17 +38,16 @@ const initialState = {
   },
 };
 
-export const userSlice = createSlice({
-  name: "user",
+export const userDataSlice = createSlice({
+  name: "userData",
   initialState,
-
   reducers: {
     setUserData: (state, action) => {
-      state.data = action.payload;
+      state.value = action.payload;
     },
   },
 });
 
-export const { setUserData } = userSlice.actions;
+export const { setUserData } = userDataSlice.actions;
 
-export default userSlice.reducer;
+export default userDataSlice.reducer;

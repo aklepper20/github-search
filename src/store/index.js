@@ -1,8 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./userSlice";
+import userDataReducer from "./userDataSlice";
+import monthsDataReducer from "./monthsDataSlice";
+import dateSplitDataReducer from "./dateSplitDataSlice";
+import themeDataReducer from "./changeThemeDataSlice";
 
 export const store = configureStore({
   reducer: {
-    user: userReducer,
+    userData: userDataReducer,
+    monthsData: monthsDataReducer,
+    dateSplitData: dateSplitDataReducer,
+    themeData: themeDataReducer,
   },
 });

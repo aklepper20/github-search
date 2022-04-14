@@ -2,7 +2,7 @@ import React from "react";
 import UserContent from "./UserContent";
 import UserInput from "./UserInput";
 
-function Container({ setUser, changeTheme, userRef, dateSplit, months }) {
+function Container({ setUser, changeTheme, userRef }) {
   return (
     <div className="container">
       <UserInput
@@ -10,7 +10,7 @@ function Container({ setUser, changeTheme, userRef, dateSplit, months }) {
         userRef={userRef}
         setUser={setUser}
       />
-      <UserContent dateSplit={dateSplit} months={months} />
+      <UserContent />
     </div>
   );
 }
